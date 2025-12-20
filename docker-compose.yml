@@ -49,6 +49,18 @@ services:
     networks:
       - myteacher-network
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: myteacher-frontend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/src
+    
 
 volumes:
   mongodb_data:
